@@ -50,13 +50,6 @@
                                 <a href="{{ route('pokemon.show', $pokemon) }}" class="btn btn-outline-primary btn-sm">
                                     Vai ai dettagli
                                 </a>
-                                <form action="{{ route('pokemon.destroy', $pokemon) }}" method="POST" class="m-0">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm w-100">
-                                        Elimina Pokemon
-                                    </button>
-                                </form>
                             </div>
                         </div>
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,7 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('pokemon', PokemonController::class)
+Route::resource('/pokemon', PokemonController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('/type', TypeController::class)
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
