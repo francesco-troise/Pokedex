@@ -31,16 +31,16 @@
                     <div class="card-footer p-0 border-top border-dark">
                         <div class="d-flex">
                             <a href="{{ route('type.edit', $type_data) }}"
-                                class="btn btn-light rounded-0 w-50 py-3 fw-bold border-end border-dark text-uppercase">
-                                MODIFICA
+                                class="btn btn-warning rounded-0 w-50 py-3 fw-bold border-end border-dark text-uppercase">
+                                <i class="bi bi-pencil"></i> MODIFICA
                             </a>
 
                             <form action="{{ route('type.destroy', $type_data) }}" method="POST" class="w-50 m-0">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                    class="btn btn-light rounded-0 w-100 h-100 py-3 fw-bold text-danger text-uppercase">
-                                    Elimina {{ $type_data->name }}
+                                    class="btn btn-danger rounded-0 w-100 h-100 py-3 fw-bold text-black text-uppercase">
+                                    <i class="bi bi-trash"></i> Elimina {{ $type_data->name }}
                                 </button>
                             </form>
                         </div>

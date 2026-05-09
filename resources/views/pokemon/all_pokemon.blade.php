@@ -17,7 +17,8 @@
 
                             <span class="fw-bold">Tipo:</span>
                             @foreach ($pokemon->types as $type)
-                                <a href="" class="text-decoration-none">{{ $type->name }}</a>
+                                <a href="{{ route('type.show', $type) }}"
+                                    class="text-decoration-none">{{ $type->name }}</a>
                                 @if (!$loop->last)
                                     /
                                 @endif

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Le tipologie pokèmon')
+@section('title', 'Le tipologie')
 
 @section('content')
     <div class="container py-5">
@@ -30,11 +30,12 @@
                         <div class="card-footer p-0 border-top border-dark">
                             <div class="d-flex">
                                 <a href="{{ route('type.show', $type) }}"
-                                    class="btn btn-light rounded-0 w-50 border-end border-dark py-3 fw-bold">
+                                    class="btn btn-outline-primary rounded-0 w-50 border-end border-dark py-3 fw-bold">
                                     VAI AI DETTAGLI
                                 </a>
-                                <a href="{{ route('type.edit', $type) }}" class="btn btn-light rounded-0 w-50 py-3 fw-bold">
-                                    MODIFICA
+                                <a href="{{ route('type.edit', $type) }}"
+                                    class="btn btn-warning rounded-0 w-50 py-3 fw-bold">
+                                    <i class="bi bi-pencil"></i> MODIFICA
                                 </a>
                             </div>
                         </div>
