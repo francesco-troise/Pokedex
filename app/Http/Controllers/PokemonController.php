@@ -37,9 +37,9 @@ class PokemonController extends Controller
      */
     public function show(Pokemon $pokemon)
     {
-        $id=$pokemon->id;
-        $pokemon_data = Pokemon::with('pokemonDetails', 'generation', 'types')->find($id);
-        return view('pokemon.show_pokemon', compact('pokemon_data'));
+
+        $pokemon->load(['pokemonDetails', 'generation', 'types']);
+        return view('pokemon.show_pokemon', compact('pokemon'));
     }
 
     /**
