@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,9 @@ Route::resource('/pokemon', PokemonController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('/type', TypeController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('/generation', GenerationController::class)
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

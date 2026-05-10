@@ -78,7 +78,7 @@
                             </h2>
                         </div>
                         <div class="text-end">
-                            <a href="" class="btn btn-light fw-bold shadow-sm px-4 py-2"
+                            <a href="{{ route('generation.index') }}" class="btn btn-light fw-bold shadow-sm px-4 py-2"
                                 style="border-radius: 12px; border: none;">
                                 Vai alle generazioni <i class="bi bi-chevron-right"></i>
                             </a>
