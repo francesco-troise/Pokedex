@@ -3,7 +3,10 @@
 
 @section('content')
     <div class="container py-5">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+        <a href="{{ route('type.create') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2" style="border-radius: 12px; ">
+            Aggiungi una nouva tipologia! <i class="bi bi-chevron-right"></i>
+        </a>
+        <div class=" mt-1 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
             @foreach ($all_types as $type)
                 <div class="col">
                     <div class="card h-100 shadow-sm text-center border-dark" style="border-radius: 20px; overflow: hidden;">
