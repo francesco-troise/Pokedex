@@ -10,7 +10,8 @@
                     <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; overflow: hidden;">
 
                         <div class="card-header bg-white border-0 pt-4 px-4">
-                            <a href="{{ route('generation.index') }}">Torna alle generazioni</a>
+                            <a href="{{ route('generation.index') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2"
+                                style="border-radius: 12px;">Torna alle generazioni</a>
                             <h1 class="fw-bold mb-0">{{ $generation->number }}° generazione - {{ $generation->region }}</h1>
                         </div>
 

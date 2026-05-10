@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Generation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GenerationController extends Controller
 {
@@ -44,17 +45,36 @@ class GenerationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Generation $generation)
     {
-        //
+        $aviable_regions = Generation::orderBy('region', 'asc')->pluck('region');
+        $aviable_numbers = Generation::orderBy('number', 'asc')->pluck('number');
+        return view('generation.forms.edit_generation', compact('generation', 'aviable_regions', 'aviable_numbers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Generation $generation)
     {
-        //
+
+        $generation->number = $request['gen_num'];
+        $generation->region = $request['gen_region'];
+        $generation->description = $request['gen_desc'];
+
+        if($request->hasFile('gen_image')){
+
+        if($generation->region_image) Storage::disk('public')->delete($generation->region_image);
+
+        $path = Storage::disk('public')->putFile('generation_img', $request['gen_image']);
+
+        $generation->region_image = $path;
+
+        }
+
+        $generation->save();
+
+        return redirect()->route('generation.show', $generation);
     }
 
     /**

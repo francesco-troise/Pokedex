@@ -2,6 +2,7 @@
 @section('title', 'Le generazioni')
 
 @section('content')
+    <a href="{{ route('generation.create') }}">Aggiungi una nuova generazione</a>
     <div class="container py-5">
         <div class="row g-4">
             @foreach ($generations as $generation)
