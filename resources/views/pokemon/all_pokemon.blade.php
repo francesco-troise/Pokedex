@@ -34,7 +34,8 @@
                             <small class="text-muted d-block">
                                 <strong>Generazione:</strong> {{ $pokemon->getGenerationNumber() }}ª
                                 <span class="text-mutedmx-2">/</span>
-                                <a href="" class="text-decoration-none">{{ $pokemon->getRegion() }}</a>
+                                <a href="{{ route('generation.show', $pokemon->generation->id) }}"
+                                    class="text-decoration-none">{{ $pokemon->getRegion() }}</a>
                             </small>
                         </div>
 

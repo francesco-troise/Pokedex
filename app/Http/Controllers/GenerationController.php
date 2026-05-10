@@ -37,8 +37,8 @@ class GenerationController extends Controller
      */
     public function show(Generation $generation)
     {
-        $gen_data = $generation->load('pokemons');
-        return view('generation.show_generation', compact('gen_data'));
+        $random_pkm = $generation->rand_related_pkm();
+        return view('generation.show_generation', compact(['generation', 'random_pkm']));
     }
 
     /**
