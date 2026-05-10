@@ -2,50 +2,58 @@
 @section('title', 'Le tipologie')
 
 @section('content')
-    <div class="container py-5">
-        <a href="{{ route('type.create') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2" style="border-radius: 12px; ">
-            Aggiungi una nouva tipologia! <i class="bi bi-chevron-right"></i>
+    <h1 class="text-center mb-2">
+        Tutti i <b>Tipi</b> presenti nel tuo database!
+    </h1>
+
+    <p class="text-center mb-4">
+        Nuovo pokemon rilasciato? Se il Tipo è inedito, aggiungilo!
+    </p>
+
+    <div class="mb-5">
+        <a href="{{ route('type.create') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2" style="border-radius: 12px;">
+            Aggiungi una nuova tipologia! <i class="bi bi-chevron-right"></i>
         </a>
-        <div class=" mt-1 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
-            @foreach ($all_types as $type)
-                <div class="col">
-                    <div class="card h-100 shadow-sm text-center border-dark" style="border-radius: 20px; overflow: hidden;">
+    </div>
+    <div class=" mt-1 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+        @foreach ($all_types as $type)
+            <div class="col">
+                <div class="card h-100 shadow-sm text-center border-dark" style="border-radius: 20px; overflow: hidden;">
 
-                        <div class="card-header bg-transparent border-0 pt-4 text-center">
-                            <p class="text-uppercase small fw-bold mb-0 text-muted">Tipologia</p>
+                    <div class="card-header bg-transparent border-0 pt-4 text-center">
+                        <p class="text-uppercase small fw-bold mb-0 text-muted">Tipologia</p>
 
-                            <h3 class="fw-bold mb-0 d-flex justify-content-center align-items-center gap-2">
+                        <h3 class="fw-bold mb-0 d-flex justify-content-center align-items-center gap-2">
 
-                                <x-type_badge :color="$type->getTypeColor()" />
+                            <x-type_badge :color="$type->getTypeColor()" />
 
-                                <a href="{{ route('type.show', $type) }}" class="text-decoration-none text-dark">
-                                    {{ $type->name }}
-                                </a>
-                            </h3>
-                        </div>
-
-                        <div class="card-body d-flex align-items-center justify-content-center p-0"
-                            style="min-height: 300px; background-color: #f8f9fa;">
-                            <img src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" class="img-fluid w-100"
-                                style="max-height: 300px; object-fit: cover;">
-                        </div>
-
-                        <div class="card-footer p-0 border-top border-dark">
-                            <div class="d-flex">
-                                <a href="{{ route('type.show', $type) }}"
-                                    class="btn btn-outline-primary rounded-0 w-50 border-end border-dark py-3 fw-bold">
-                                    VAI AI DETTAGLI
-                                </a>
-                                <a href="{{ route('type.edit', $type) }}"
-                                    class="btn btn-warning rounded-0 w-50 py-3 fw-bold">
-                                    <i class="bi bi-pencil"></i> MODIFICA
-                                </a>
-                            </div>
-                        </div>
-
+                            <a href="{{ route('type.show', $type) }}" class="text-decoration-none text-dark">
+                                {{ $type->name }}
+                            </a>
+                        </h3>
                     </div>
+
+                    <div class="card-body d-flex align-items-center justify-content-center p-0"
+                        style="min-height: 300px; background-color: #f8f9fa;">
+                        <img src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" class="img-fluid w-100"
+                            style="max-height: 300px; object-fit: cover;">
+                    </div>
+
+                    <div class="card-footer p-0 border-top border-dark">
+                        <div class="d-flex">
+                            <a href="{{ route('type.show', $type) }}"
+                                class="btn btn-outline-primary rounded-0 w-50 border-end border-dark py-3 fw-bold">
+                                VAI AI DETTAGLI
+                            </a>
+                            <a href="{{ route('type.edit', $type) }}" class="btn btn-warning rounded-0 w-50 py-3 fw-bold">
+                                <i class="bi bi-pencil"></i> MODIFICA
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
+    </div>
     </div>
 @endsection

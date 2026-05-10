@@ -35,7 +35,8 @@
                                 <i class="bi bi-pencil"></i> MODIFICA
                             </a>
 
-                            <form action="{{ route('type.destroy', $type) }}" method="POST" class="w-50 m-0">
+                            <form action="{{ route('type.destroy', $type) }}" method="POST" class="w-50 m-0"
+                                onsubmit="return confirm('Sei sicuro di voler eliminare definitivamente {{ $type->name }}?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
