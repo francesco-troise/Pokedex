@@ -22,7 +22,8 @@ class GenerationController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('generation.forms.create_generation');
     }
 
     /**
@@ -30,7 +31,21 @@ class GenerationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new_gen = new Generation();
+
+        $new_gen->number = $request['gen_num'];
+        $new_gen->region = $request['gen_region'];
+        $new_gen->description = $request['gen_desc'];
+
+        if($request->hasFile('gen_image')){
+            $path = Storage::disk('public')->putFile('generation_img', $request['gen_image']);
+
+            $new_gen->region_image = $path;
+        }
+
+        $new_gen->save();
+
+
     }
 
     /**
@@ -80,8 +95,12 @@ class GenerationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Generation $generation)
     {
-        //
+        if($generation->region_image) Storage::disk('public')->delete($generation->region_image);
+
+        $generation->delete();
+
+        return redirect()->route('generation.index');
     }
 }

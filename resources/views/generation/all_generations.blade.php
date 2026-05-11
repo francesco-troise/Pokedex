@@ -2,7 +2,12 @@
 @section('title', 'Le generazioni')
 
 @section('content')
-    <a href="{{ route('generation.create') }}">Aggiungi una nuova generazione</a>
+    <div class="mb-5">
+        <a href="{{ route('generation.create') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2"
+            style="border-radius: 12px;">
+            Aggiungi una nuova generazione! <i class="bi bi-chevron-right"></i>
+        </a>
+    </div>
     <div class="container py-5">
         <div class="row g-4">
             @foreach ($generations as $generation)

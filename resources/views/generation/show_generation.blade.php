@@ -10,8 +10,9 @@
                     <div class="card h-100 shadow-sm border-0" style="border-radius: 20px; overflow: hidden;">
 
                         <div class="card-header bg-white border-0 pt-4 px-4">
-                            <a href="{{ route('generation.index') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2"
-                                style="border-radius: 12px;">Torna alle generazioni</a>
+                            <a href="{{ route('generation.index') }}" class="btn btn-outline-secondary btn-sm shadow-sm">
+                                ← Torna
+                                alle generazioni</a>
                             <h1 class="fw-bold mb-0">{{ $generation->number }}° generazione - {{ $generation->region }}</h1>
                         </div>
 
@@ -50,17 +51,19 @@
                         <div class="card-header bg-transparent border-0 pt-4">
                             <div class="card-title h4 fw-bold text-muted text-uppercase mb-1">Pokemon esempio</div>
                             <span class="display-6 fw-bold"
-                                style="color: {{ $random_pkm->types->first()->getTypeColor() }};">{{ $random_pkm->name }}</span>
-                        </div>
-                        <div class="card-body d-flex align-items-center justify-content-center p-4">
-                            <img src="{{ Storage::url($random_pkm->image) }}" class="img-fluid"
-                                style="max-height: 300px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));"
-                                alt="{{ $random_pkm->name }}">
+                                style="color: {{ $random_pkm?->types?->first()->getTypeColor() }};">
+                                {{ $random_pkm?->name ?? 'Nessun Pokémon di esempio' }}
+                            </span>
+                            <div class="card-body d-flex align-items-center justify-content-center p-4">
+                                <img src="{{ $random_pkm?->image ? Storage::url($random_pkm->image) : Storage::url('image_default.jpg') }}"
+                                    class="img-fluid"
+                                    style="max-height: 300px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));"
+                                    alt="{{ $random_pkm?->name ?? 'Nessun Pokémon di esempio' }}">
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection
