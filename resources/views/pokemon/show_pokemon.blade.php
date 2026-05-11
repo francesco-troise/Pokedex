@@ -5,7 +5,8 @@
     <div class="container py-5">
         <div class="card shadow-sm mx-auto" style="max-width: 700px;">
 
-            <div class="card-header bg-primary text-white p-3">
+            <div class="card-header  text-white p-3"
+                style="background-color: {{ $pokemon->types->first()->getTypeColor() }};">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2 class="mb-0 fw-bold">{{ $pokemon->name }} -Scheda dettaglio</h2>
                     <div>
