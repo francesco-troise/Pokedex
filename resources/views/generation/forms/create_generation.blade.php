@@ -18,29 +18,47 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="gen_num" class="form-label fw-semibold text-secondary">Numero Generazione</label>
-                            <input type="number" name="gen_num" id="gen_num" min="1" max="100"
-                                class="form-control border-0 bg-light py-2" placeholder="Es: 1">
+                            <label for="number" class="form-label fw-semibold text-secondary">Numero Generazione</label>
+                            <input type="number" name="number" id="number" min="1" max="100"
+                                class="form-control border-0 bg-light py-2" placeholder="Es: 1" value="{{ old('number') }}"
+                                required>
+                            @error('number')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        {{-- NUMBER GEN /required --}}
 
                         <div class="mb-3">
-                            <label for="gen_region" class="form-label fw-semibold text-secondary">Nome Regione</label>
-                            <input type="text" name="gen_region" id="gen_region"
-                                class="form-control border-0 bg-light py-2" placeholder="Es: Kanto">
+                            <label for="region" class="form-label fw-semibold text-secondary">Nome Regione</label>
+                            <input type="text" name="region" id="region" class="form-control border-0 bg-light py-2"
+                                placeholder="Es: Kanto" value="{{ old('region') }}" required>
+                            @error('region')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        {{-- REGION GEN /required --}}
 
                         <div class="mb-3">
-                            <label for="gen_desc" class="form-label fw-semibold text-secondary">Descrizione della
+                            <label for="description" class="form-label fw-semibold text-secondary">Descrizione della
                                 generazione/regione</label>
-                            <textarea name="gen_desc" id="gen_desc" class="form-control border-0 bg-light" rows="5"
-                                placeholder="Descrivi la  regione..."></textarea>
+                            <textarea name="description" id="description" class="form-control border-0 bg-light" rows="5"
+                                placeholder="Descrivi la regione...">{{ old('description') }}</textarea>
+                            @error('description')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        {{-- DESCRIPTION GEN --}}
 
                         <div class="mb-4">
-                            <label for="gen_image" class="form-label fw-semibold text-secondary">Immagine della
+                            <label for="region_image" class="form-label fw-semibold text-secondary">Immagine della
                                 regione</label>
-                            <input type="file" name="gen_image" id="gen_image" class="form-control border-0 bg-light">
+                            <input type="file" name="region_image" id="region_image"
+                                class="form-control border-0 bg-light">
+                            @error('region_image')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        {{-- IMAGE GEN --}}
 
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary py-3 fw-bold text-uppercase shadow-sm">

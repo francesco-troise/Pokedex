@@ -35,21 +35,25 @@
                         @method('PUT')
 
                         <div class="mb-3">
-                            <label for="gen_num" class="form-label fw-semibold text-secondary">Associa la generazione al
+                            <label for="number" class="form-label fw-semibold text-secondary">Associa la generazione al
                                 suo numero</label>
-                            <select name="gen_num" id="gen_num" class="form-select border-0 bg-light">
+                            <select name="number" id="number" class="form-select border-0 bg-light" required>
                                 @foreach ($aviable_numbers as $num)
                                     <option value="{{ $num }}" {{ $generation->number == $num ? 'selected' : '' }}>
                                         {{ $num }}° Generazione
                                     </option>
                                 @endforeach
                             </select>
+                            @error('number')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        {{-- NUMBER GEN /required --}}
 
                         <div class="mb-3">
-                            <label for="gen_region" class="form-label fw-semibold text-secondary">Associa la relativa
+                            <label for="region" class="form-label fw-semibold text-secondary">Associa la relativa
                                 regione</label>
-                            <select name="gen_region" id="gen_region" class="form-select border-0 bg-light">
+                            <select name="region" id="region" class="form-select border-0 bg-light" required>
                                 @foreach ($aviable_regions as $region)
                                     <option value="{{ $region }}"
                                         {{ $generation->region == $region ? 'selected' : '' }}>
@@ -57,20 +61,32 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @error('region')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        {{-- REGION GEN /required --}}
 
                         <div class="mb-3">
-                            <label for="gen_desc" class="form-label fw-semibold text-secondary">Descrizione della
+                            <label for="description" class="form-label fw-semibold text-secondary">Descrizione della
                                 generazione/regione</label>
-                            <textarea name="gen_desc" id="gen_desc" class="form-control border-0 bg-light" rows="5">{{ $generation->description }}</textarea>
+                            <textarea name="description" id="description" class="form-control border-0 bg-light" rows="5">{{ $generation->description }}</textarea>
+                            @error('description')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        {{-- DESCRIPTION GEN --}}
 
                         <div class="mb-4">
-                            <label for="gen_image" class="form-label fw-semibold text-secondary">Cambia immagine della
+                            <label for="region_image" class="form-label fw-semibold text-secondary">Cambia immagine della
                                 regione</label>
-                            <input type="file" name="gen_image" id="gen_image" class="form-control border-0 bg-light">
-
+                            <input type="file" name="region_image" id="region_image"
+                                class="form-control border-0 bg-light">
+                            @error('region_image')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        {{-- IMAGE GEN --}}
 
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary py-3 fw-bold text-uppercase shadow-sm">

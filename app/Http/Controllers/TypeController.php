@@ -30,16 +30,35 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $validation_data = $request->validate([
+           'name' => 'required|alpha|max:255|unique:types',
+           'description' => 'nullable|string|max:5000',
+           'image' => 'nullable|image|max:2048'
+        ],
+        [
+            'name.required' => "Il nome del tipo è obligatorio",
+            'name.alpha' => "Il nome del tipo puo contenere solo lettere",
+            'name.max' => "Lunghezza eccessiva, massimo 255 lettere",
+            'name.unique' => "Non possono esserci piu tipi con lo stesso nome",
+             //rules validation for name
+
+             'description.max' =>"Descrizone troppa lunga massimo 500 caratteri",
+             //rules validation for description
+
+            'image.image' => "Il file deve essere un'immagine",
+            'image.max' => "Immagine troppo pesante, massimo 2MB consentiti"
+            //rules validation for image
+        ]);
+
 
         $new_type = new Type();
 
-        $new_type->name = $data['name'];
-        $new_type->description = $data['description'];
+        $new_type->name = $validation_data['name'];
+        $new_type->description = $validation_data['description'];
 
         if($request->hasFile('image')){
 
-        $path = Storage::disk('public')->putFile('types_img', $data['image'] );
+        $path = Storage::disk('public')->putFile('types_img', $validation_data['image'] );
 
         $new_type->image = $path;
         }
@@ -72,16 +91,37 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        $data = $request->all();
+        $validate_data = $request->validate([
+            'name' =>'required|alpha|max:255|unique:types',
+            'description' =>'nullable|string|max:5000',
+            'image' => 'nullable|image|max:2048'
 
-        $type->name = $data['name'];
-        $type->description = $data['description'];
+        ],
+        [
+            'name.required' => "Il nome del tipo è obligatorio",
+            'name.alpha' => "Il nome del tipo puo contenere solo lettere",
+            'name.max' => "Lunghezza eccessiva, massimo 255 lettere",
+            'name.unique' => "Non possono esserci piu tipi con lo stesso nome",
+            //rules validation for name
+
+            'description.max' => "Descrizone troppa lunga massimo 500 caratteri",
+            //rules validation for description
+
+            'image.image' => "Il file deve essere un'immagine",
+            'image.max' => "Immagine troppo pesante, massimo 2MB consentiti"
+            //rules validation for imge
+
+
+        ]);
+
+        $type->name = $validate_data['name'];
+        $type->description = $validate_data['description'];
 
         if($request->hasFile('image')){
 
             if($type->image) Storage::disk('public')->delete($type->image);
 
-            $path = Storage::disk('public')->putFile('types_img', $data['image']);
+            $path = Storage::disk('public')->putFile('types_img', $validate_data['image']);
 
             $type->image = $path;
 

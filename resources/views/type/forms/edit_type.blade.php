@@ -33,28 +33,41 @@
                         </h5>
                     </div>
 
+                    {{-- FORM --}}
                     <div class="card-body p-4">
                         <form action="{{ route('type.update', $type) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
+
                             <div class=" mb-3">
                                 <label for="name" clasS="fw-bold">Nome tipologia</label>
                                 <input type="text" name="name" id="name" class="form-control"
-                                    placeholder="Nome tipologia" value="{{ $type->name }}">
-
+                                    placeholder="Nome tipologia" value="{{ old('name', $type->name) }}" required>
+                                @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+                            {{-- NAME TYPE /required --}}
 
                             <div class="mb-3 text-start">
                                 <label for="description" class="form-label fw-bold">Descrizione del tipo</label>
-                                <textarea class="form-control" name="description" id="description" rows="3">{{ $type->description }}</textarea>
+                                <textarea class="form-control" name="description" id="description" rows="3">{{ old('description', $type->description) }}</textarea>
+                                @error('description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+                            {{-- DESCRIPTION TYPE --}}
 
                             <div class="mb-4">
                                 <label for="image" class="form-label small fw-bold text-muted">Sostituisci immagine del
-                                    tipo: {{ $type->name }}</label>
+                                    tipo: {{ old('image', $type->name) }}</label>
                                 <input type="file" name="image" id="image" class="form-control">
+                                @error('image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+                            {{-- IMAGE TYPE --}}
 
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary btn-lg shadow-sm fw-bold">

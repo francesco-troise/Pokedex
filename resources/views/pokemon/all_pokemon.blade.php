@@ -8,7 +8,7 @@
         </h1>
 
         <p class="lead text-muted text-center mb-5 mx-auto" style="max-width: 700px;">
-            Analizza i dettagli di un singolo Pokémon, o ricercane uno specifico
+            Analizza la tua collezione Pokémon, o ricercane uno specifico
         </p>
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
             @foreach ($all_pokemon as $pokemon)

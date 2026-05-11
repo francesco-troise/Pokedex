@@ -24,24 +24,27 @@
                     <div class="card-body p-4">
                         <form action="{{ route('type.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+
                             <div class=" mb-3">
                                 <label for="name" clasS="fw-bold">Nome tipologia</label>
                                 <input type="text" name="name" id="name" class="form-control"
-                                    placeholder="Nome tipologia" value="">
-
+                                    placeholder="Nome tipologia" value="{{ old('name') }}" required>
                             </div>
+                            {{-- NAME TYPE /required --}}
 
                             <div class="mb-3 text-start">
                                 <label for="description" class="form-label fw-bold">Descrizione del tipo</label>
                                 <textarea class="form-control" name="description" id="description" rows="3"
-                                    placeholder="Aggiungere descrizoine della tipologia"></textarea>
+                                    placeholder="Aggiungere descrizione della tipologia">{{ old('description') }}</textarea>
                             </div>
+                            {{-- DESCRIPTION TYPE --}}
 
                             <div class="mb-4">
                                 <label for="image" class="form-label small fw-bold text-muted">Aggiungi immagine del
                                     tipo</label>
                                 <input type="file" name="image" id="image" class="form-control">
                             </div>
+                            {{-- IMAGE TYPE --}}
 
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary btn-lg shadow-sm fw-bold">
