@@ -36,7 +36,7 @@
                                 <a href="" class="text-decoration-none">{{ $pokemon->getRegion() }}</a>
                             </li>
                             <li class="list-group-item px-0">
-                                <strong>Altezza:</strong> {{ $pokemon->getHeight() }} cm
+                                <strong>Altezza:</strong> {{ $pokemon->getHeight() }} mt
                             </li>
                             <li class="list-group-item px-0">
                                 <strong>Peso:</strong> {{ $pokemon->getweight() }} Kg

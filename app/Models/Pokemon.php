@@ -25,7 +25,7 @@ class Pokemon extends Model
     }
 
     public function getweight(){
-        return $this->pokemonDetails->weigth;
+        return $this->pokemonDetails->weight;
     }
 
     public function getDescription(){
@@ -42,8 +42,6 @@ class Pokemon extends Model
         return $this->generation->region;
     }
     //Retrieve info from Generation
-
-
 
 
 }

@@ -92,7 +92,7 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $validate_data = $request->validate([
-            'name' =>'required|alpha|max:255|unique:types',
+            'name' =>"required|alpha|max:255|unique:types,name,{$type->id}",
             'description' =>'nullable|string|max:5000',
             'image' => 'nullable|image|max:2048'
 

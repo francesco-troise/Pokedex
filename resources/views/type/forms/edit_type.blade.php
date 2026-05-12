@@ -35,7 +35,8 @@
 
                     {{-- FORM --}}
                     <div class="card-body p-4">
-                        <form action="{{ route('type.update', $type) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('type.update', $type) }}" method="POST" enctype="multipart/form-data"
+                            novalidate>
                             @csrf
                             @method('PUT')
 
