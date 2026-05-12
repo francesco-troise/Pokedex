@@ -10,6 +10,12 @@
         <p class="lead text-muted text-center mb-5 mx-auto" style="max-width: 700px;">
             Analizza la tua collezione Pokémon, o ricercane uno specifico
         </p>
+        <div class="mb-5">
+            <a href="{{ route('pokemon.create') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2"
+                style="border-radius: 12px;">
+                Aggiungi un nuovo Pokemon! <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
             @foreach ($all_pokemon as $pokemon)
                 <div class="col">

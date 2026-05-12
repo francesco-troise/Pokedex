@@ -43,5 +43,11 @@ class Pokemon extends Model
     }
     //Retrieve info from Generation
 
-
+    public function putPkmDetails(string $field, $value){
+        if(!$this->pokemonDetails){
+            $this->setRelation('pokemonDetails', new PokemonDetail());
+            $this->pokemonDetails->pokemon_id = $this->id;
+        };
+        $this->pokemonDetails->$field = $value;
+    }
 }

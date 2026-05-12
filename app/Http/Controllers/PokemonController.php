@@ -24,7 +24,9 @@ class PokemonController extends Controller
      */
     public function create()
     {
-        return "SEI NELLA -CREATE DI POKEMON";
+        $aviable_types = Type::all();
+        $aviable_gen = Generation::all();
+        return view('pokemon.forms.create_pokemon', compact('aviable_types','aviable_gen'));
     }
 
     /**
@@ -32,7 +34,76 @@ class PokemonController extends Controller
      */
     public function store(Request $request)
     {
-        return "SEI NELLA -STORE DI POKEMON";
+
+        $validate_data = $request->validate([
+            'pokemon.name' => "required|string|unique:pokemon|min:1|max:100|",
+            'pokemon.height' => "nullable|numeric|min:0.1|max:99999.99",
+            'pokemon.weight' => "nullable|numeric|min:0.1|max:99999.99|",
+            'pokemon.description' => "nullable|string|max:5000",
+            'pokemon.image' => "required|image|max:2048",
+             //Rules validate for Pokemon Info
+
+            'pokemon.types' => "required|array|min:1",
+            'pokemon.types.*' => "integer|exists:types,id",
+            //Rules validate for Pokemon types
+
+            'pokemon.generation_id' => "required|integer|min:1|max:100|exists:generations,id"
+            //Rules validate for Pokemon generation
+
+         ],
+         [
+            'pokemon.name.required' => "Il nome del pokemon è obbligatorio",
+            'pokemon.name.string' => "Il nome del pokemon ammette solo lettere",
+            'pokemon.name.min' => "Lunghezza minima del nome: 1 carattere",
+            'pokemon.name.max' => "lunghezza eccessiva: massimo 100 caratteri",
+            'pokemon.name.unique' => "Non ci possono essere due pokemon con nome uguale",
+            //Error messages for name
+
+            'pokemon.height.numeric' => "Inserire solo numeri",
+            'pokemon.height.min' => "Altezza minimo 0.1",
+            'pokemon.height.max' => "Altezza eccessiva, massimo 19.999,99 ",
+            'pokemon.weight.min' => "Peso minimo 0.1",
+            'pokemon.weight.max' => "Peso eccessivo, massimo 19.999,99 ",
+            //Error messages for height/weight
+
+            'pokemon.description.string' => "Sono ammessi solo caratteri alfa-numerici",
+            'pokemon.description.max' => "Lunghezza eccessiva: massimo 5.000 caratteri",
+            //Error messages for description
+
+            'pokemon.image.image' => "Caricare un immagine, altri tipi di file non sono supportati",
+            'pokemon.image.max' => "Immagine troppo pesante, massimo 2MB",
+            'pokemon.image.required' => "Immagine obbligatoria per Pokemon",
+            //Error messages for image
+
+            'pokemon.types.required' => "Inserire almeno un tipo",
+            'pokemon.types.min' => "inserire almeno un tipo",
+            'pokemon.types.*.integer' => "Errore, tipologia selezionata ha ID non intero",
+            'pokemon.types.*.exists' => "Errore, la tipologia selezionata non è presente tra i tipi disponibili"
+            //Error messages for types
+        ]);
+
+        $pokemon_data = $validate_data['pokemon'];
+
+        $new_pkm = new Pokemon();
+
+        $new_pkm->name = $pokemon_data['name'];
+        $new_pkm->generation_id = $pokemon_data['generation_id'];
+        $path = Storage::disk('public')->putFile('pokemon_img', $pokemon_data['image']);
+        $new_pkm->image = $path;
+
+
+        $new_pkm->save();
+
+
+        $new_pkm->putPkmDetails('height', $pokemon_data['height']);
+        $new_pkm->putPkmDetails('weight', $pokemon_data['weight']);
+        $new_pkm->putPkmDetails('description', $pokemon_data['description']);
+
+        $new_pkm->pokemonDetails->save();
+
+        $new_pkm->types()->sync($pokemon_data['types']);
+
+        return redirect()->route('pokemon.show', $new_pkm);
     }
 
     /**
@@ -68,9 +139,9 @@ class PokemonController extends Controller
     public function update(Request $request, Pokemon $pokemon)
     {
         $validate_data = $request->validate([
-            'pokemon.name' => "required|alpha|min:1|max:100|unique:pokemon,name,{$pokemon->id}",
-            'pokemon.height' => "nullable|numeric|min:0.1|max:10000.99|",
-            'pokemon.weight' => "nullable|numeric|min:0.1|max:10000.99|",
+            'pokemon.name' => "required|alpha|unique:pokemon,name,{$pokemon->id}|min:1|max:100",
+            'pokemon.height' => "nullable|numeric|min:0.1|max:99999.99|",
+            'pokemon.weight' => "nullable|numeric|min:0.1|max:99999.99|",
             'pokemon.description' => "nullable|string|max:5000",
             'pokemon.image' => "nullable|image|max:2048",
             //Rules validate for Pokemon Info
@@ -151,8 +222,12 @@ class PokemonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Pokemon $pokemon)
     {
-        return "SEI NELLA -DESTROY DI POKEMON";
+        if($pokemon->image) Storage::disk('public')->delete($pokemon->image);
+
+        $pokemon->delete();
+
+        return redirect()->route('pokemon.index');
     }
 }
