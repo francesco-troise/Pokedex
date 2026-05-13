@@ -2,12 +2,64 @@
 @section('title', 'Le generazioni')
 
 @section('content')
+
+    @if ($generations->isEmpty())
+        <div class="alert alert-warning text-center shadow-sm mb-5" style="border-radius: 15px;">
+            <h1 class="display-6 fw-bold text-uppercase">Nessun risultato trovato</h1>
+            <p>La ricerca per la generazione inserita non ha prodotto risultati.</p>
+            <div class="text-start mt-4">
+                <a href="{{ route('generation.index') }}" class="text-decoration-none text-muted fw-bold">
+                    <i class="bi bi-arrow-left"></i> Torna alla lista delle generazioni
+                </a>
+            </div>
+        </div>
+    @endif
+
+
     <div class="mb-5">
         <a href="{{ route('generation.create') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2"
             style="border-radius: 12px;">
             Aggiungi una nuova generazione! <i class="bi bi-chevron-right"></i>
         </a>
     </div>
+
+    <div class="card shadow-sm border-0 p-4 mb-5 sticky-top"
+        style=" top: 70px; z-index: 999; border-radius: 20px; background-color: #f8f9fa;">
+        <form action="{{ route('generation.index') }}" method="GET" novalidate>
+            <h3 class="h5 fw-bold mb-3 text-uppercase text-secondary">Ricerca una generazione specifica</h3>
+
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label for="region" class="form-label small fw-bold">Ricerca per regione</label>
+                    <input type="text" name="region" id="region" class="form-control border-0 shadow-sm py-2 "
+                        required placeholder="Esempio: Kanto, Johto...">
+                    @error('name')
+                        <div class="invalid-feedback fw-bold">{{ $message }}</div>
+                    @enderror
+                    <label for="number" class="form-label small fw-bold">Ricerca per numero generazione</label>
+                    <input type="number" name="number" id="number" min="1" max="100"
+                        class="form-control border-0 shadow-sm py-2 " required placeholder="Esempio: 1, 2, ...">
+                    @error('number')
+                        {{ $message }}
+                    @enderror
+                </div>
+
+                <div class="col-md-6 d-flex align-items-center">
+                    <button type="submit" class="btn btn-dark fw-bold px-4 py-2 shadow-sm me-3"
+                        style="border-radius: 10px;">
+                        Cerca!
+                    </button>
+                    <div class="text-start mt-4 mb-4">
+                        <a href="{{ route('generation.index') }}" class="text-decoration-none text-muted fw-bold "
+                            style="border: solid 1px grey">
+                            <i class="bi bi-arrow-left"></i> Torna a lista generazioni
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="container py-5">
         <div class="row g-4">
             @foreach ($generations as $generation)

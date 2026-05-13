@@ -13,10 +13,78 @@ class PokemonController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $all_pokemon = Pokemon::with('pokemonDetails','types', 'generation')->get();
-       return view('pokemon.all_pokemon', compact('all_pokemon'));
+      if($request->name||$request->type||$request->number||$request->region){
+        $filters= $request->validate([
+            'name' => "nullable|alpha|min:1|max:100",
+            'type' => "nullable|numeric|integer|min:1",
+            'number' => "nullable|numeric|integer|min:1",
+            "region" => "nullable|alpha|min:1|max:100"
+        ],
+        [
+            'name.alpha' => "Sono ammessi solo lettere",
+            'name.min' => "Mini 1 carattere",
+            'name.max' => "Massimo caratteri consentiti: 100",
+            //Rules validation for name
+
+            'type.numeric' => "Inserire solo numeri",
+            'type.integer' => "inserire solo numeri interi",
+            'type.min' => "Non esiste tipo con id associato minore di 1",
+            //Rules validation for type
+
+            'number.numeric' => "Inserire solo numeri",
+            'number.integer' => "inserire solo numeri interi",
+            'number.min' => "Non esiste generazione con id associato minore di 1",
+            //Rules validation for number
+
+            'region.alpha' => "Inserie solo lettere",
+            'region.min' => "Minimo 1 carattere richiesto",
+            'region.max' => "Massmio caratteri consentiti: 100"
+            //rules validation for region
+
+        ]);
+
+        $query= Pokemon::with('pokemonDetails','types', 'generation');
+
+        if($request->filled('name')) $query->where('name', 'like', "%" . $filters['name'] . "%");
+        //Filtro per Nome
+
+        if($request->filled('type')){
+            $type_id = $filters['type'];
+            $query->whereHas('types', function($q) use($type_id){
+                $q->where('types.id', $type_id);
+            });
+        }
+        //Filtro per Tipo
+
+
+        if ($request->filled('number')) {
+            $query->whereHas('generation', function ($q) use ($filters) {
+                $q->where('generations.id', $filters['number']);
+            });
+        }
+        // Filtro per ID Generazione
+
+        if ($request->filled('region')) {
+            $query->whereHas('generation', function ($q) use ($filters) {
+                $q->where('generations.region', 'like', "%" . $filters['region'] . "%");
+            });
+        }
+        // Filtro per Nome Regione
+
+        $all_pokemon = $query->get();
+      }else{
+        $all_pokemon = Pokemon::with('generation', 'types')->get();
+        //Se filtri assenti
+      }
+
+
+        $all_gen = Generation::all();
+        $all_types = Type::all();
+        //Generazioni e tipi per popolare select
+
+       return view('pokemon.all_pokemon', compact('all_pokemon','all_types', 'all_gen'));
     }
 
     /**

@@ -3,7 +3,7 @@
 
 @section('content')
 
-    {{-- Alert Errore Ricerca --}}
+
     @if ($all_types->isEmpty())
         <div class="alert alert-warning text-center shadow-sm mb-5" style="border-radius: 15px;">
             <h1 class="display-6 fw-bold text-uppercase">Nessun risultato trovato</h1>
@@ -16,7 +16,6 @@
         </div>
     @endif
 
-    {{-- Intestazione --}}
     <div class="text-center mb-5">
         <h1 class="display-5 fw-bold">Tutti i <span class="text-primary">Tipi</span> presenti nel tuo database!</h1>
         <p class="lead text-muted">Nuovo pokemon rilasciato? Se il Tipo è inedito, aggiungilo!</p>
@@ -29,7 +28,7 @@
         </div>
     </div>
 
-    {{-- Sezione Ricerca --}}
+
     <div class="card shadow-sm border-0 p-4 mb-5 sticky-top"
         style=" top: 70px; z-index: 999; border-radius: 20px; background-color: #f8f9fa;">
         <form action="{{ route('type.index') }}" method="GET" novalidate>
@@ -61,7 +60,7 @@
             </div>
         </form>
     </div>
-
+    {{-- Sezione Ricerca --}}
 
 
     <div class=" mt-1 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">

@@ -11,9 +11,38 @@ class GenerationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $generations = Generation::with('pokemons')->get();
+
+        $filters = $request->validate([
+            'region' => "nullable|alpha|min:1|max:100|",
+            'number' => "nullable|numeric|integer|min:1|max:100"
+        ],
+        [
+            'region.alpha' => "Sono ammesse solo lettere",
+            'region.min' => "Minimo un carattere richiesto",
+            'region.max' => "Massimo caratteri consentiti: 100",
+            //Rules validation for region
+
+            'number.numeric' => "Inserire un numero",
+            'number.integer' => "inserire un numero intero",
+            'number.min' => "Valore minimo accettao: 1",
+            'number.max' => "Valore massimo accettato: 100"
+            //Reluse validation for number
+        ]);
+
+        $query = Generation::with('pokemons');
+
+        if($request->anyFilled('region')){
+            $query->where('region', 'like', "%" . $filters['region'] . "%");
+        }
+
+        if($request->anyFilled('number')){
+            $query->where('number', $filters['number']);
+        }
+
+        $generations = $query->get();
+
         return view('generation.all_generations', compact('generations'));
     }
 
