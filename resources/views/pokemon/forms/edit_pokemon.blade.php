@@ -85,9 +85,7 @@
 
                             <div class="mb-0">
                                 <label for="description" class="form-label fw-bold small">DESCRIZIONE</label>
-                                <textarea name="pokemon[description]" id="description" class="form-control bg-light border-0" rows="4">
-                                    {{ old('pokemon.description', $pokemon->getDescription()) }}
-                                </textarea>
+                                <textarea name="pokemon[description]" id="description" class="form-control bg-light border-0" rows="4">{{ old('pokemon.description', $pokemon->getDescription()) }}</textarea>
                                 @error('pokemon.description')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

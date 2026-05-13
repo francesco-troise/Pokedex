@@ -33,7 +33,8 @@
                             <li class="list-group-item px-0">
                                 <strong>Generazione:</strong> {{ $pokemon->getGenerationNumber() }}ª
                                 <span class="text-mutedmx-2">/</span>
-                                <a href="" class="text-decoration-none">{{ $pokemon->getRegion() }}</a>
+                                <a href="{{ route('generation.show', $pokemon->generation) }}"
+                                    class="text-decoration-none">{{ $pokemon->getRegion() }}</a>
                             </li>
                             <li class="list-group-item px-0">
                                 <strong>Altezza:</strong> {{ $pokemon->getHeight() }} mt

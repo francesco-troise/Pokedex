@@ -25,6 +25,10 @@ class Type extends Model
     }
 
     public function getTypeColor() {
-    return $this->color ?? "#b9b8ab";
-}
+        return $this->color ?? "#828179";
+    }
+
+    public function rand_related_pkm(){
+        return $this->pokemon()->inRandomOrder()->first();
+    }
 }

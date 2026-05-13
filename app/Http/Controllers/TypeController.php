@@ -11,9 +11,27 @@ class TypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $all_types = Type::with('pokemon')->get();
+        $filters = $request->validate([
+            'name' => "nullable|alpha|min:1|max:100|"
+        ],
+        [
+            'name.required' => "Nome necessario per la ricerca",
+            'name.alpha' => "Inserire solo lettere",
+            'name.min' => "Inserire almeno 1 carattere",
+            'name.max' => "Massimo caratteri consentiti: 100"
+        ]);
+
+        if($request->anyFilled('name')){
+            $all_types = Type::with('pokemon')
+            ->where('name', 'like', '%' . $filters['name'] . "%" )
+            ->get();
+        }else{
+            $all_types = Type::with('pokemon')->get();
+        }
+
+
         return view('type.all_types', compact('all_types'));
     }
 
@@ -74,8 +92,8 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-
-        return view('type.show_type', compact('type'));
+        $random_pkm = $type->rand_related_pkm();
+        return view('type.show_type', compact('type', 'random_pkm'));
     }
 
     /**

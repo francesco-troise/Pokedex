@@ -2,19 +2,68 @@
 @section('title', 'Le tipologie')
 
 @section('content')
-    <h1 class="text-center mb-2">
-        Tutti i <b>Tipi</b> presenti nel tuo database!
-    </h1>
 
-    <p class="text-center mb-4">
-        Nuovo pokemon rilasciato? Se il Tipo è inedito, aggiungilo!
-    </p>
+    {{-- Alert Errore Ricerca --}}
+    @if ($all_types->isEmpty())
+        <div class="alert alert-warning text-center shadow-sm mb-5" style="border-radius: 15px;">
+            <h1 class="display-6 fw-bold text-uppercase">Nessun risultato trovato</h1>
+            <p>La ricerca per il nome inserito non ha prodotto risultati.</p>
+            <div class="text-start mt-4">
+                <a href="{{ route('type.index') }}" class="text-decoration-none text-muted fw-bold">
+                    <i class="bi bi-arrow-left"></i> Torna alla lista tipi
+                </a>
+            </div>
+        </div>
+    @endif
 
-    <div class="mb-5">
-        <a href="{{ route('type.create') }}" class="btn btn-primary fw-bold shadow-sm px-4 py-2" style="border-radius: 12px;">
-            Aggiungi una nuova tipologia! <i class="bi bi-chevron-right"></i>
-        </a>
+    {{-- Intestazione --}}
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Tutti i <span class="text-primary">Tipi</span> presenti nel tuo database!</h1>
+        <p class="lead text-muted">Nuovo pokemon rilasciato? Se il Tipo è inedito, aggiungilo!</p>
+
+        <div class="mt-4">
+            <a href="{{ route('type.create') }}" class="btn btn-primary btn-lg fw-bold shadow-sm px-4 py-2"
+                style="border-radius: 50px;">
+                Aggiungi una nuova tipologia! <i class="bi bi-chevron-right ms-2"></i>
+            </a>
+        </div>
     </div>
+
+    {{-- Sezione Ricerca --}}
+    <div class="card shadow-sm border-0 p-4 mb-5 sticky-top"
+        style=" top: 70px; z-index: 999; border-radius: 20px; background-color: #f8f9fa;">
+        <form action="{{ route('type.index') }}" method="GET" novalidate>
+            <h3 class="h5 fw-bold mb-3 text-uppercase text-secondary">Ricerca una tipologia specifica</h3>
+
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label for="name" class="form-label small fw-bold">Ricerca per nome</label>
+                    <input type="text" name="name" id="name"
+                        class="form-control border-0 shadow-sm py-2 @error('name') is-invalid @enderror" required
+                        placeholder="Esempio: Erba, Fuoco...">
+                    @error('name')
+                        <div class="invalid-feedback fw-bold">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6 d-flex align-items-center">
+                    <button type="submit" class="btn btn-dark fw-bold px-4 py-2 shadow-sm me-3"
+                        style="border-radius: 10px;">
+                        Cerca!
+                    </button>
+                    <div class="text-start mt-4 mb-4">
+                        <a href="{{ route('type.index') }}" class="text-decoration-none text-muted fw-bold "
+                            style="border: solid 1px grey">
+                            <i class="bi bi-arrow-left"></i> Torna a lista tipi
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
     <div class=" mt-1 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
         @foreach ($all_types as $type)
             <div class="col">

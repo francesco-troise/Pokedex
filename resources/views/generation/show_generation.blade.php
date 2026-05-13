@@ -49,16 +49,18 @@
                 <div class="col-lg-4 col-pkm">
                     <div class="card h-100 shadow-sm border-0 text-center" style="border-radius: 20px;">
                         <div class="card-header bg-transparent border-0 pt-4">
-                            <div class="card-title h4 fw-bold text-muted text-uppercase mb-1">Pokemon esempio</div>
+                            <div class="card-title h4 fw-bold text-muted  mb-1">POKEMON ESEMPIO</div>
                             <span class="display-6 fw-bold"
                                 style="color: {{ $random_pkm?->types?->first()->getTypeColor() }};">
                                 {{ $random_pkm?->name ?? 'Nessun Pokémon di esempio' }}
                             </span>
                             <div class="card-body d-flex align-items-center justify-content-center p-4">
-                                <img src="{{ $random_pkm?->image ? Storage::url($random_pkm->image) : Storage::url('image_default.jpg') }}"
-                                    class="img-fluid"
-                                    style="max-height: 300px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));"
-                                    alt="{{ $random_pkm?->name ?? 'Nessun Pokémon di esempio' }}">
+                                <a href="{{ route('pokemon.show', $random_pkm) }}">
+                                    <img src="{{ $random_pkm?->image ? Storage::url($random_pkm->image) : Storage::url('image_default.jpg') }}"
+                                        class="img-fluid"
+                                        style="max-height: 300px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));"
+                                        alt="{{ $random_pkm?->name ?? 'Nessun Pokémon di esempio' }}">
+                                </a>
                             </div>
                         </div>
                     </div>
