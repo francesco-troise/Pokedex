@@ -29,7 +29,7 @@
     </div>
 
 
-    <div class="card shadow-sm border-0 p-4 mb-5 sticky-top"
+    <div class="card shadow-sm border-0 p-4 mb-5 "
         style=" top: 70px; z-index: 999; border-radius: 20px; background-color: #f8f9fa;">
         <form action="{{ route('type.index') }}" method="GET" novalidate>
             <h3 class="h5 fw-bold mb-3 text-uppercase text-secondary">Ricerca una tipologia specifica</h3>
