@@ -8,15 +8,25 @@ use Illuminate\Http\Request;
 
 class GenerationController extends Controller
 {
-    public function index()
-    {
-        $generations = Generation::all();
+    public function index(Request $request)
+{
+    $query = Generation::query();
 
-        return response()->json([
-            'status' => 'success',
-            'data'   => $generations
-        ]);
+    if ($request->filled('number')) {
+        $query->where('number', $request->number);
     }
+
+    if ($request->filled('region')) {
+        $query->where('region', 'like', '%' . $request->region . '%');
+    }
+
+    $generations = $query->get();
+
+    return response()->json([
+        'status' => 'success',
+        'data'   => $generations
+    ]);
+}
 
     public function show($id)
     {
