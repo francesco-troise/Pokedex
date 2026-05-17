@@ -64,7 +64,7 @@
                             placeholder="Esempio: 1, 2, ...">
                     </div>
 
-                    {{-- Terza riga: Regione e Bottoni --}}
+                    {{-- Terza riga: Regione--}}
                     <div class="col-md-8">
                         <label for="region" class="form-label small fw-bold text-dark">Ricerca per regione</label>
                         <select name="region" id="region" class="form-select border-0 shadow-sm">

@@ -20,7 +20,7 @@ class PokemonController extends Controller
             'name' => "nullable|alpha|min:1|max:100",
             'type' => "nullable|numeric|integer|min:1",
             'number' => "nullable|numeric|integer|min:1",
-            "region" => "nullable|alpha|min:1|max:100"
+            "region" => "nullable|numeric|min:1|max:100"
         ],
         [
             'name.alpha' => "Sono ammessi solo lettere",
@@ -38,7 +38,7 @@ class PokemonController extends Controller
             'number.min' => "Non esiste generazione con id associato minore di 1",
             //Rules validation for number
 
-            'region.alpha' => "Inserie solo lettere",
+            'region.numeric' => "Inserie solo numeri",
             'region.min' => "Minimo 1 carattere richiesto",
             'region.max' => "Massmio caratteri consentiti: 100"
             //rules validation for region
@@ -68,7 +68,7 @@ class PokemonController extends Controller
 
         if ($request->filled('region')) {
             $query->whereHas('generation', function ($q) use ($filters) {
-                $q->where('generations.region', 'like', "%" . $filters['region'] . "%");
+                $q->where('generations.id', $filters['region']);
             });
         }
         // Filtro per Nome Regione
