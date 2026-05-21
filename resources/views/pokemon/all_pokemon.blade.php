@@ -41,8 +41,13 @@
                     <div class="col-12">
                         <label for="name" class="form-label small fw-bold text-dark">Ricerca per nome</label>
                         <input type="text" name="name" id="name"
-                            class="form-control border-0 shadow-sm py-2 @error('name') is-invalid @enderror"
+                            class="form-control border-0 shadow-sm py-2"
                             placeholder="Esempio: Blaziken, Mudikip, ...">
+                            @error('name')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                     </div>
 
                     {{-- Seconda riga: Tipo e Numero --}}
@@ -54,14 +59,24 @@
                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
                             @endforeach
                         </select>
+                        @error('type')
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
                     <div class="col-md-8">
                         <label for="number" class="form-label small fw-bold text-dark">Ricerca per numero
                             generazione</label>
                         <input type="number" name="number" id="number" min="1" max="100"
-                            class="form-control border-0 shadow-sm @error('number') is-invalid @enderror"
+                            class="form-control border-0 shadow-sm"
                             placeholder="Esempio: 1, 2, ...">
+                            @error('number')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                     </div>
 
                     {{-- Terza riga: Regione--}}
@@ -73,6 +88,11 @@
                                 <option value="{{ $gen->id }}">{{ $gen->region }}</option>
                             @endforeach
                         </select>
+                        @error('region')
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
 

@@ -55,12 +55,12 @@
                                 {{ $random_pkm?->name ?? 'Nessun Pokémon di esempio' }}
                             </span>
                             <div class="card-body d-flex align-items-center justify-content-center p-4">
-                                <a href="{{ route('pokemon.show', $random_pkm) }}">
+
                                     <img src="{{ $random_pkm?->image ? Storage::url($random_pkm->image) : Storage::url('image_default.jpg') }}"
                                         class="img-fluid"
                                         style="max-height: 300px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));"
                                         alt="{{ $random_pkm?->name ?? 'Nessun Pokémon di esempio' }}">
-                                </a>
+
                             </div>
                         </div>
                     </div>

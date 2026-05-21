@@ -58,24 +58,22 @@ class PokemonController extends Controller
         }
         //Filtro per Tipo
 
-
-        if ($request->filled('number')) {
-            $query->whereHas('generation', function ($q) use ($filters) {
-                $q->where('generations.id', $filters['number']);
-            });
+        if($request->filled('number')){
+            $query->where('generation_id',$filters['number'] );
         }
         // Filtro per ID Generazione
 
         if ($request->filled('region')) {
-            $query->whereHas('generation', function ($q) use ($filters) {
-                $q->where('generations.id', $filters['region']);
+            $region = $filters['region'];
+            $query->whereHas('generation', function ($q) use ($region) {
+                $q->where('generations.id', $region );
             });
         }
         // Filtro per Nome Regione
 
         $all_pokemon = $query->get();
       }else{
-        $all_pokemon = Pokemon::with('generation', 'types')->get();
+        $all_pokemon = Pokemon::with('generation', 'pokemonDetails', 'types')->get();
         //Se filtri assenti
       }
 
